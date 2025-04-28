@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const { ytmp3, ytmp4, search } = require('@vreden/youtube_scraper');
+const { fbdl, igdl, ttdl } = require('ruhend-scraper');
 const app = express();
 const port = 3000;
 
@@ -179,6 +180,109 @@ app.get('/play2', async (req, res) => {
             download: downloadResult.download,
             metadata: downloadResult.metadata,
             error: downloadResult.status ? null : downloadResult.result,
+            author: 'kenn'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: 'Server error: ' + error.message,
+            author: 'kenn'
+        });
+    }
+});
+
+// API endpoint for TikTok download
+app.get('/ttdl', async (req, res) => {
+    const { url } = req.query;
+
+    if (!url) {
+        return res.status(400).json({
+            status: false,
+            error: 'TikTok URL is required',
+            author: 'kenn'
+        });
+    }
+
+    try {
+        const data = await ttdl(url);
+        res.json({
+            status: true,
+            data: {
+                title: data.title,
+                author: data.author,
+                username: data.username,
+                published: data.published,
+                like: data.like,
+                comment: data.comment,
+                share: data.share,
+                views: data.views,
+                bookmark: data.bookmark,
+                video: data.video,
+                cover: data.cover,
+                music: data.music,
+                profilePicture: data.profilePicture
+            },
+            error: null,
+            author: 'kenn'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: 'Server error: ' + error.message,
+            author: 'kenn'
+        });
+    }
+});
+
+// API endpoint for Instagram download
+app.get('/igdl', async (req, res) => {
+    const { url } = req.query;
+
+    if (!url) {
+        return res.status(400).json({
+            status: false,
+            error: 'Instagram URL is required',
+            author: 'kenn'
+        });
+    }
+
+    try {
+        const result = await igdl(url);
+        const data = await result.data;
+        res.json({
+            status: true,
+            data: data.map(media => ({ url: media.url })),
+            error: null,
+            author: 'kenn'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: 'Server error: ' + error.message,
+            author: 'kenn'
+        });
+    }
+});
+
+// API endpoint for Facebook download
+app.get('/fbdl', async (req, res) => {
+    const { url } = req.query;
+
+    if (!url) {
+        return res.status(400).json({
+            status: false,
+            error: 'Facebook URL is required',
+            author: 'kenn'
+        });
+    }
+
+    try {
+        const result = await fbdl(url);
+        const data = await result.data;
+        res.json({
+            status: true,
+            data: data,
+            error: null,
             author: 'kenn'
         });
     } catch (error) {
