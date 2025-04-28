@@ -1,0 +1,17 @@
+{
+  "name": "combined-api",
+  "version": "1.0.0",
+  "description": "Combined API for DeepSeek chat and YouTube downloader",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["api", "nodejs", "deepseek", "youtube"],
+  "author": "kenn",
+  "license": "MIT",
+  "dependencies": {
+    "@vreden/youtube_scraper": "*",
+    "axios": "*",
+    "express": "*"
+  }
+}
