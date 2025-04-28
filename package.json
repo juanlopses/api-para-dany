@@ -1,17 +1,18 @@
 {
   "name": "combined-api",
   "version": "1.0.0",
-  "description": "Combined API for DeepSeek chat and YouTube downloader",
+  "description": "Combined API for DeepSeek chat, YouTube, TikTok, Instagram, and Facebook downloader",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": ["api", "nodejs", "deepseek", "youtube"],
+  "keywords": ["api", "nodejs", "deepseek", "youtube", "tiktok", "instagram", "facebook"],
   "author": "kenn",
   "license": "MIT",
   "dependencies": {
     "@vreden/youtube_scraper": "*",
     "axios": "*",
-    "express": "*"
+    "express": "*",
+    "ruhend-scraper": "*"
   }
 }
